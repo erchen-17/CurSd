@@ -6,7 +6,7 @@ transfer_image_path: None
 wandb_run: sdv1-5_one-step
 wandb_project: dhf
 use_wandb : False
-results_folder: experiment_try_wait_cls
+results_folder: experiment
 # ======== Data / Logging ========
 pck_threshold: 0.1
 flip_timesteps: False
@@ -15,10 +15,10 @@ num_workers: 4
 pin_memory: True
 prefetch_factor: 1
 # ========model_specific_parameters=======
-save_timestep: [31, 40, 49] #决定哪些time_step用于输入aggregation_network
+save_timestep: [31, 40, 49] # the timesteps used for classification
 num_timesteps: 50 #2 200
 train_time_steps: 400
-idxs: [[3, 2]] #[[1,2], [2,1], [2,2], [3,0], [3,1], [3,2]] #决定哪些time_step用于输入aggregation_network
+idxs: [[3, 2]]
 freeze_idxs: [[2,1],[2,2],[3,1],[3,2]]
 freeze_ratio: 0.5
 flexible_training_layers: True
@@ -34,10 +34,10 @@ num_query : 5
 max_epochs: 15
 max_steps_per_epoch: 5000
 val_every_n_epoch: 2
-val_every_n_steps: -1 #15 #900
+val_every_n_steps: -1
 val_step_once: 100000000000
 plot_every_n_steps: -1
-lr:  0.0002 #NEU:0.0003左右可以，过大会导致准确率不高
+lr:  0.0002
 u_net_lr : 0.0000005
 validate_ratio : 0.2
 classification_wait_step: 230
@@ -48,10 +48,10 @@ eps : 0.0000001
 projection_dim: 384
 gradient_checkpointing: True
 # ============== SDv1-5 ==========
-model_id: runwayml/stable-diffusion-v1-5 #runwayml/stable-diffusion-v1-5
+model_id: runwayml/stable-diffusion-v1-5
 use_control_net: True
 control_net_confidence_threshold: 0
-control_net_id: lllyasviel/sd-controlnet-depth #lllyasviel/sd-controlnet-scribble
+control_net_id: lllyasviel/sd-controlnet-depth
 diffusion_mode: inversion
 output_resolution: 64
 load_resolution: 256
