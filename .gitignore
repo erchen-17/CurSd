@@ -1,0 +1,15 @@
+*.pt
+datasets/
+test_visualize/
+sota/datasets/
+sota/prototypical-networks-master/data
+wandb/
+__pycache__/
+runs/
+.gradio/
+cache/
+*.pyc
+**/*.pyc
+pytorch-grad-cam
+grad_cam_pic/
+debug/

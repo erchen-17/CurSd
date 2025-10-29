@@ -1,0 +1,119 @@
+# ======== Customize Paths =======
+dataset : NEU
+image_path: datasets\NEU surface defect database
+transfer_dataset: None
+transfer_image_path: None
+wandb_run: sdv1-5_one-step
+wandb_project: dhf
+use_wandb : False
+results_folder: experiment_try_wait_cls
+# ======== Data / Logging ========
+pck_threshold: 0.1
+flip_timesteps: False
+device: cuda:0
+num_workers: 4
+pin_memory: True
+prefetch_factor: 1
+# ========model_specific_parameters=======
+save_timestep: [31, 40, 49] #决定哪些time_step用于输入aggregation_network
+num_timesteps: 50 #2 200
+train_time_steps: 400
+idxs: [[3, 2]] #[[1,2], [2,1], [2,2], [3,0], [3,1], [3,2]] #决定哪些time_step用于输入aggregation_network
+freeze_idxs: [[2,1],[2,2],[3,1],[3,2]]
+freeze_ratio: 0.5
+flexible_training_layers: True
+# ======= Training Hparams =======
+batch_size: 1
+train_ddim_batch_size: 4
+train_ddim_range: 3
+accumulation_steps: 16
+num_classes: 4
+transfer_num_classes : 4
+num_support : 5
+num_query : 5
+max_epochs: 15
+max_steps_per_epoch: 5000
+val_every_n_epoch: 2
+val_every_n_steps: -1 #15 #900
+val_step_once: 100000000000
+plot_every_n_steps: -1
+lr:  0.0002 #NEU:0.0003左右可以，过大会导致准确率不高
+u_net_lr : 0.0000005
+validate_ratio : 0.2
+classification_wait_step: 230
+#===========adamw_params========
+weight_decay: 0.0001
+eps : 0.0000001
+# ======== Model Hparams =========
+projection_dim: 384
+gradient_checkpointing: True
+# ============== SDv1-5 ==========
+model_id: runwayml/stable-diffusion-v1-5 #runwayml/stable-diffusion-v1-5
+use_control_net: True
+control_net_confidence_threshold: 0
+control_net_id: lllyasviel/sd-controlnet-depth #lllyasviel/sd-controlnet-scribble
+diffusion_mode: inversion
+output_resolution: 64
+load_resolution: 256
+prediction_type: epsilon
+snr_gamma: 5
+# =========== edge ===============
+use_edge_guidance: False
+edge_weight: 0.8  # 边缘权重系数
+# ================================
+guidance_scale: -1
+ddim_guidance_scale: -1
+freeze_weights_in_unet : False
+prompt: "A close-up photo of a steel surface, industrial, high detail, texture"
+negative_prompt: "poor quality"
+generate_prompt: ""
+set_timesteps_manually : True
+lambda_weight : 1
+lambda_transfer_weight: 1
+lambda_cls: 1
+#=============ddim_params============
+noise_offset: 0.01
+
+#=============check_point============
+checkpoint_path : None
+checkpoint_epoch : None
+
+#==========contrastive loss=================
+alpha : 0.5
+margin : 0.1
+
+#=================debug===========
+log_train_accuracy : True
+train_diffusion_inside : False
+train_diffusion_outside : True
+classification: True
+visualize_hyperfeatures : True
+visualize_time_step: [500, 1000, 1500]
+visualialize_generated_images: False
+num_generate_steps: 100
+#===============================
+lora:
+  use_lora: True
+  rank: 16
+  lora_alpha: 32
+  init_lora_weights: "gaussian"
+  target_modules: ["to_k", "to_q", "to_v", "to_out.0", "to_out.1"]
+
+# ======= Learning Rate Scheduler =======
+# Learning rate scheduler settings
+lr_scheduler: "cosine"  # 可选: "linear", "cosine", "constant", "constant_with_warmup"
+lr_warmup_steps: 50
+lr_num_cycles: 3  # 用于cosine调度器
+min_lr_ratio: 0.3  # 用于cosine调度器的最小学习率比例
+max_train_steps: null  # 如果为null，则使用max_epochs计算
+
+#============ Transfer learning params ===========
+transfer_learning: False
+transfer_inversion_steps: 12
+transfer_generation_steps: 20
+inversion_eta: 0.9
+
+transfer_n_shot: 10
+unlabeled_train_lambda: 1
+transfer_hyperfeature_mode: generation
+transfer_accumulation_classification: 10
