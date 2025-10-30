@@ -639,7 +639,7 @@ class trainer_class():
         # 恢复训练模式
         classification_model.train()
 
-    def train_NEU(self, config, diffusion_extractor, scale_fusion_network, classification_model,  optimizer,scheduler, train_dataloader, val_dataloader, transfer_dataloader = None):
+    def train_main(self, config, diffusion_extractor, scale_fusion_network, classification_model,  optimizer,scheduler, train_dataloader, val_dataloader, transfer_dataloader = None):
         device = config.get("device", "cuda")
         max_epochs = config["max_epochs"]
         accumulation_steps = config.get("accumulation_steps", 4)
@@ -1322,7 +1322,7 @@ def main(args):
     trainer = trainer_class(config, writer, inner_config)
     if not (config["transfer_learning"] or only_few_shot):
         lr_scheduler = get_scheduler_NEU(config, optimizer, len(train_dataloader))
-        trainer.train_NEU(config, diffusion_extractor, scale_fusion_network, classification_model,  optimizer, lr_scheduler, train_dataloader, val_dataloader, transfer_dataloader = transfer_dataloader)
+        trainer.train_main(config, diffusion_extractor, scale_fusion_network, classification_model,  optimizer, lr_scheduler, train_dataloader, val_dataloader, transfer_dataloader = transfer_dataloader)
     elif config["transfer_learning"]:
         lr_scheduler = get_scheduler_NEU(config, optimizer, len(train_dataloader))
         trainer.transfer(config, diffusion_extractor, scale_fusion_network, classification_model,  optimizer,  train_dataloader, val_dataloader, unlabeled_dataloader, lr_scheduler)
@@ -1334,6 +1334,6 @@ def main(args):
 if __name__ == "__main__":
     # python3 train_generic.py --config_path configs/train.yaml
     parser = argparse.ArgumentParser()
-    parser.add_argument("--config_path", type=str, help="Path to yaml config file", default="configs/train_NEU.yaml")
+    parser.add_argument("--config_path", type=str, help="Path to yaml config file", default="configs/train.yaml")
     args = parser.parse_args()
     main(args)
