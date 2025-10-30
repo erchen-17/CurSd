@@ -1,24 +1,45 @@
 # CurSd
-This repository contains the code for the patent "**Cross-Domain Few Shot Industrial Defect Classification Based on a Progressive Conditional Diffusion Model**"
+
+This repository provides the implementation of the patent:  **“Cross-Domain Few-Shot Industrial Defect Classification Based on a Progressive Conditional Diffusion Model.”**
+<p align="center">
+  <span style="display: inline-block; vertical-align: middle;">
+    <img src="images/Model_Structure.png" width="360px" />
+    <br>
+  </span>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <!-- Control spacing between the two images -->
+  <span style="display: inline-block; vertical-align: middle;">
+    <img src="images/Training_Steps.png" width="300px" />
+    <br>
+  </span>
+</p>
+
 
 ## Highlights
-1. Implements a unified diffusion framework that simultaneously performs domain adaptation, feature extraction, and image generation.
-2. Utilizes hyperfeature extraction to learn a more robust model.
-3. Introduces a progressive curriculum learningbased control strategy that fuses strong- and weak-supervision images to mitigate domain-shift-induced bias.
-4. Achieves few-shot domain adaptation via stable diffusion–based image migration.
+
+1. **Unified diffusion framework** — integrates domain adaptation, feature extraction, and image generation within a single architecture.  
+2. **Hyperfeature extraction** — enhances the robustness and generalization capability of learned representations.  
+3. **Progressive curriculum control** — progressively fuses strongly and weakly supervised images to improve reconstruction quality.  
+4. **Few-shot domain adaptation** — achieved through stable diffusion–based domain transfer.
+
+## Training
+To train the network on a custom dataset containing images and their labeles, use the training script provided below.  
+Modify `configs/train.yaml` to specify your dataset path, and then run `main.py` to start training.  
+The code includes dataset configurations for **NEU**, **NEU64**, **Severstal**, and **X_SDD** datasets.
 
 ## Usage
-### Stable Diffusion
-- We use Stable-Diffusion-v1-5 as the diffusion model.
-- We use lllyasviel/sd-controlnet-depth as the ControlNet.
 
-### Training dataset
-- NEU dataset is provided on http://faculty.neu.edu.cn/songkechen/zh_CN/zhym/263269/list/index.htm
-- Severstal Dataset is provided on https://github.com/Severstal-AI/DefectNet.
+### Stable Diffusion
+- Uses [**Stable-Diffusion-v1-5**](https://huggingface.co/g-luo/diffusion-hyperfeatures/resolve/main/weights/aggregation_network.pt?download=true) as the base diffusion model.  
+- Incorporates [**lllyasviel/sd-controlnet-depth**](https://huggingface.co/lllyasviel/sd-controlnet-depth) as the ControlNet module.
+
+### Training Datasets
+- **NEU Dataset** → http://faculty.neu.edu.cn/songkechen/zh_CN/zhym/263269/list/index.htm  
+- **Severstal Dataset** → https://github.com/Severstal-AI/DefectNet
 
 ## Related Works
-- [Diffusion Hyperfeatures: Searching Through Time and Space for Semantic Correspondence](https://diffusion-hyperfeatures.github.io/)
-- [Unsupervised Domain Adaptation via Domain-Adaptive Diffusion](https://ieeexplore.ieee.org/document/10599225)
-- [DiffDD: A surface defect detection framework with diffusion probabilistic model](https://www.sciencedirect.com/science/article/pii/S1474034624002854)
-- [Denoising Diffusion Implicit Models](https://openreview.net/forum?id=St1giarCHLP)
+
+- [Diffusion Hyperfeatures: Searching Through Time and Space for Semantic Correspondence](https://diffusion-hyperfeatures.github.io/)  
+- [Unsupervised Domain Adaptation via Domain-Adaptive Diffusion](https://ieeexplore.ieee.org/document/10599225)  
+- [DiffDD: A Surface Defect Detection Framework with Diffusion Probabilistic Model](https://www.sciencedirect.com/science/article/pii/S1474034624002854)  
+- [Denoising Diffusion Implicit Models](https://openreview.net/forum?id=St1giarCHLP)  
 - [High-Resolution Image Synthesis with Latent Diffusion Models](https://arxiv.org/abs/2112.10752)
