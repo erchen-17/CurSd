@@ -1,6 +1,7 @@
 # CurSd
 
 This repository provides the implementation of the patent:  **“Cross-Domain Few-Shot Industrial Defect Classification Based on a Progressive Conditional Diffusion Model.”**
+Patent Publication Number: CN121170422A
 <p align="center">
   <span style="display: inline-block; vertical-align: middle;">
     <img src="images/Model_Structure.png" width="360px" />
